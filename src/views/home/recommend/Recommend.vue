@@ -11,7 +11,7 @@
 
             <template #videoInfo>
               <div class="left-info">
-                <van-icon :name="playIcon"></van-icon>
+                <van-icon :name="item.playIcon"></van-icon>
                 <span>{{ item.playsCount }}</span>
               </div>
               <div class="right-info">
@@ -39,11 +39,9 @@
 </template>
 
 <script>
-import { onMounted } from "vue";
+import {onMounted,computed} from "vue";
 
 import VideoViewItem from "@/components/VideoViewItem";
-import playIcon from '@/assets/icon/play.svg'
-import { computed } from "@vue/reactivity";
 
 export default {
   name: "Recommend",
@@ -70,8 +68,8 @@ export default {
     onMounted(() => {
       document.querySelector('body').setAttribute('style', 'background:#f4f4f4')
     })
+
     return {
-      playIcon,
       splitItems,
     }
   }
@@ -82,7 +80,6 @@ export default {
 .video-view {
   display: flex;
   flex-wrap: wrap;
-  margin-top: 10px;
 }
 
 .view-list {
@@ -124,7 +121,7 @@ export default {
 
 }
 
-.video-title>span {
+.video-title > span {
   display: block;
   margin-left: 8px;
 }
@@ -138,7 +135,7 @@ export default {
   padding-left: 8px;
 }
 
-.video-uploader>span:nth-child(2) {
+.video-uploader > span:nth-child(2) {
   padding-left: 4px;
 }
 </style>

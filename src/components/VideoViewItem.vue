@@ -31,7 +31,7 @@ export default {
   overflow: hidden;
   background: #ffffff;
   box-shadow: 0 2px 1px #e6e6e6 ;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
 .video-image{

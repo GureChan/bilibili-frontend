@@ -5,6 +5,7 @@
 
 <script>
 import tabBar from "@/components/TabBar";
+
 export default {
   name: 'App',
   components: {
@@ -14,4 +15,15 @@ export default {
 </script>
 
 <style>
+html{
+  height: 100vh;
+}
+body{
+  height: 100vh;
+}
+#app{
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
 </style>

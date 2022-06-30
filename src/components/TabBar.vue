@@ -1,26 +1,27 @@
 <template>
-  <van-tabbar v-model="active">
-    <van-tabbar-item name="home" @click="toNewURL" data-router-name="home"> <!--  data-*是html中的自定义属性 -->
-      <span>首页</span>
-      <template #icon="props">
-        <img :src="props.active?images[0].active:images[0].inactive" alt="">
-      </template>
-    </van-tabbar-item>
+    <van-tabbar v-model="active" :fixed="false" :placeholder="true">
+      <van-tabbar-item name="home" @click="toNewURL" data-router-name="home"> <!--  data-*是html中的自定义属性 -->
+        <span>首页</span>
+        <template #icon="props">
+          <img :src="props.active?images[0].active:images[0].inactive" alt="">
+        </template>
+      </van-tabbar-item>
 
-    <van-tabbar-item name="dynamic" @click="toNewURL" data-router-name="dynamic">
-      <span>动态</span>
-      <template #icon="props">
-        <img :src="props.active?images[1].active:images[1].inactive" alt="">
-      </template>
-    </van-tabbar-item>
+      <van-tabbar-item name="dynamic" @click="toNewURL" data-router-name="dynamic">
+        <span>动态</span>
+        <template #icon="props">
+          <img :src="props.active?images[1].active:images[1].inactive" alt="">
+        </template>
+      </van-tabbar-item>
 
-    <van-tabbar-item name="user" @click="toNewURL" data-router-name="profile">
-      <span>我的</span>
-      <template #icon="props">
-        <img :src="props.active?images[2].active:images[2].inactive" alt="">
-      </template>
-    </van-tabbar-item>
-  </van-tabbar>
+      <van-tabbar-item name="user" @click="toNewURL" data-router-name="profile">
+        <span>我的</span>
+        <template #icon="props">
+          <img :src="props.active?images[2].active:images[2].inactive" alt="">
+        </template>
+      </van-tabbar-item>
+    </van-tabbar>
+
 </template>
 
 <script>
