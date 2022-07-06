@@ -45,7 +45,7 @@ export default {
 
 .video-info{
   position: absolute;
-  bottom:4px;
+  bottom:0;
   display: flex;
   height: 22px;
   width: 100%;

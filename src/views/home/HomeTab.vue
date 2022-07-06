@@ -63,6 +63,7 @@ export default {
 .van-tabs {
   line-height: 44px;
   background: #ffffff;
+  box-shadow: 0 1px #e6e6e6 ;
 }
 
 .van-tabs-nav {

@@ -1,5 +1,5 @@
 <template>
-    <van-tabbar v-model="active" :fixed="false" :placeholder="true">
+    <van-tabbar v-model="active" :fixed="false" >
       <van-tabbar-item name="home" @click="toNewURL" data-router-name="home"> <!--  data-*是html中的自定义属性 -->
         <span>首页</span>
         <template #icon="props">

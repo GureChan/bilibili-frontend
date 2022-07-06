@@ -1,6 +1,9 @@
 <template>
   <router-view></router-view>
-  <tab-bar></tab-bar>
+
+  <div class="footer">
+    <tab-bar></tab-bar>
+  </div>
 </template>
 
 <script>
@@ -15,15 +18,23 @@ export default {
 </script>
 
 <style>
-html{
-  height: 100vh;
+/*
+https://blog.csdn.net/u010881899/article/details/80845369
+顶部，底部固定，中间滚动
+*/
+html,body{
+  height: 100%;
+  width: 100%;
 }
-body{
-  height: 100vh;
+
+.footer {
+  overflow: hidden;
+  opacity: 0.95;
 }
+
 #app{
-  height: 100vh;
-  display: flex;
+  display:flex;
   flex-direction: column;
+  height: 100%;
 }
 </style>
