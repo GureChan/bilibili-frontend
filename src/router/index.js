@@ -17,7 +17,7 @@ const routes = [
             {
                 path: 'recommend',
                 name: 'recommend',
-                component: () => import('@/views/home/recommend/Recommend')
+                component: () => import('@/views/home/Recommend')
             },
             {
                 path: 'hot',

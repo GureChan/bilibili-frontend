@@ -12,8 +12,6 @@
 import HomeNavBar from "@/views/home/HomeNavBar";
 import HomeTab from "@/views/home/HomeTab";
 
-import {ref} from "vue";
-
 export default {
   name: "Home",
   components: {
@@ -21,14 +19,7 @@ export default {
     HomeTab,
   },
   setup() {
-    const content = ref()
-    const header = ref()
 
-
-    return {
-      header,
-      content,
-    }
   }
 }
 </script>
@@ -36,6 +27,9 @@ export default {
 <style scoped>
 .content {
   position: relative;
+  padding-top: 8px;
+  padding-left: 8px;
+  padding-right: 8px;
   flex: 1;
   overflow: auto;
 }
