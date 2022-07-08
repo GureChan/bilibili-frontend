@@ -10,11 +10,11 @@
 import tabBar from "@/components/TabBar";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    tabBar
+    tabBar,
   },
-}
+};
 </script>
 
 <style>
@@ -22,18 +22,18 @@ export default {
 https://blog.csdn.net/u010881899/article/details/80845369
 顶部，底部固定，中间滚动
 */
-html,body{
+html,
+body {
   height: 100%;
   width: 100%;
 }
 
 .footer {
   overflow: hidden;
-  opacity: 0.95;
 }
 
-#app{
-  display:flex;
+#app {
+  display: flex;
   flex-direction: column;
   height: 100%;
 }

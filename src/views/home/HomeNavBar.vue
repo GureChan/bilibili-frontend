@@ -5,7 +5,11 @@
     </template>
 
     <template #title>
-      <van-search shape="round" disabled placeholder="叔叔，柠檬什么时候熟"></van-search>
+      <van-search
+        shape="round"
+        disabled
+        placeholder="你所热爱的，就是你的生活"
+      ></van-search>
     </template>
 
     <template #right>
@@ -15,26 +19,33 @@
 </template>
 
 <script>
-import loginIcon from '@/assets/icon/user-circle.svg'
-import mailIcon from '@/assets/icon/mail.svg'
+import loginIcon from "@/assets/icon/user-circle.svg";
+import mailIcon from "@/assets/icon/mail.svg";
 
 export default {
   name: "HomeHeader",
-  setup(){
-    return{
+  setup() {
+    return {
       loginIcon,
-      mailIcon
-    }
-  }
-}
+      mailIcon,
+    };
+  },
+};
 </script>
 
 <style scoped>
-.van-nav-bar :deep(.van-icon){
+.van-nav-bar :deep(.van-icon) {
   color: inherit;
 }
-.van-nav-bar :deep(.van-nav-bar__title){
-  max-height: 100%;
-  display: flex;
+:deep(.van-nav-bar__left) {
+  position: relative;
+}
+:deep(.van-nav-bar__right) {
+  position: relative;
+}
+:deep(.van-nav-bar__title) {
+  flex: 1;
+  width: 0;
+  max-width: 100%;
 }
 </style>
