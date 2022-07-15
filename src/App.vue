@@ -1,7 +1,7 @@
 <template>
   <router-view></router-view>
 
-  <div class="footer">
+  <div class="footer" v-show="$route.meta.isTabBarShow">
     <tab-bar></tab-bar>
   </div>
 </template>
