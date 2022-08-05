@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
-
 import home from "@/views/home/Home";
+import store from "@/store";
 
 const routes = [
   {
@@ -8,13 +8,8 @@ const routes = [
     name: "home",
     component: home,
     redirect: { name: "recommend" },
-    meta: { isTabBarShow: true },
+    meta: { showTabBar: true },
     children: [
-      {
-        path: "live",
-        name: "live",
-        component: () => import("@/views/home/Live"),
-      },
       {
         path: "recommend",
         name: "recommend",
@@ -25,30 +20,40 @@ const routes = [
         name: "hot",
         component: () => import("@/views/home/Hot"),
       },
-      {
-        path: "anime",
-        name: "anime",
-        component: () => import("@/views/home/Anime"),
-      },
     ],
   },
   {
     path: "/dynamic",
     name: "dynamic",
     component: () => import("@/views/dynamic/Dynamic"),
-    meta: { isTabBarShow: true },
+    meta: { showTabBar: true },
   },
   {
     path: "/profile",
     name: "profile",
     component: () => import("@/views/profile/Profile"),
-    meta: { isTabBarShow: true },
+    meta: { showTabBar: true },
   },
   {
-    path: "/login",
-    name: "login",
-    component: () => import("@/views/Login"),
+    path: "/signin",
+    name: "signin",
+    component: () => import("@/views/SignIn"),
   },
+  {
+    path: "/signup",
+    name: "signup",
+    component: () => import("@/views/SignUp")
+  },
+  {
+    path: "/video/:vid",
+    name: "video",
+    component: () => import("@/views/Video")
+  },
+  {
+    path: "/post/:pid",
+    name: "post",
+    component: () => import("@/views/Post")
+  }
   // {
   //     path: '/:pathMatch(.*)*',
   //     name: 'NotFound',
@@ -60,5 +65,20 @@ const router = createRouter({
   routes,
   history: createWebHistory(),
 });
+
+// 全局前置守卫，在跳转到新网址之前
+router.beforeEach((to, from, next) => {
+  // to => home , from => signin
+  if (store.state.user.loginStatus) {
+    if (to.name === 'signin' || to.name === 'signup') {
+      // 如果登录之后再去访问注册和登录页面就直接跳转到主页
+      next({ name: "home" })
+    } else {
+      next()
+    }
+  } else {
+    next()
+  }
+})
 
 export default router;

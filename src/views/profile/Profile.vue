@@ -12,20 +12,20 @@
   <div class="content">
     <div class="top-info" @click="toLoginPage">
       <img :src="noFaceAvater" alt="" />
-      <span>点击登录</span>
+      <span>{{ userInfo?.username || '点击登录' }}</span>
       <van-icon :name="chevronIcon"></van-icon>
     </div>
     <div class="center-info">
       <div class="info-item">
-        <span>4</span>
+        <span>{{ '-' }}</span>
         <span>动态</span>
       </div>
       <div class="info-item">
-        <span>5</span>
+        <span>{{ '-' }}</span>
         <span>关注</span>
       </div>
       <div class="info-item">
-        <span>6</span>
+        <span>{{ '-' }}</span>
         <span>粉丝</span>
       </div>
     </div>
@@ -50,25 +50,35 @@ import moonIcon from "@/assets/icon/moon.svg";
 import sunIcon from "@/assets/icon/sun.svg";
 import paletteIcon from "@/assets/icon/palette.svg";
 import noFaceAvater from "@/assets/img/info/noface.webp";
-import { onMounted, ref } from "vue";
+import { computed, nextTick, onActivated, onMounted, reactive, ref } from "vue";
 import { useRouter } from "vue-router";
+import { useStore } from "vuex";
+import { getUserInfoRequest } from "@/api/user";
 
 export default {
   name: "Profile",
   setup() {
-    const isLightMode = ref(false);
-    const isLogin = ref(false);
-    const router = new useRouter();
+    const store = useStore()
+    const isLightMode = ref(false); // 浅色模式
+    const loginStatus = computed(() => store.state.user.loginStatus) // vuex分成模块之后，在取的时候都要加上模块名
+    const uid = computed(() => store.state.user.uid)
+    const router = useRouter();
+    let userInfo = ref(null);
 
-    onMounted(() => {
+    const toLoginPage = () => {
+      router.push({ name: "signin" });
+    };
+
+    onActivated(async () => {
       document
         .querySelector("body")
         .setAttribute("style", "background:#ffffff");
-    });
-
-    const toLoginPage = () => {
-      router.push({ name: "login" });
-    };
+      // 每次切换到该页面的时候，判断用户是否登录,如果登录了就渲染信息，如果没有登录，就渲染未登录信息
+      if (loginStatus.value) {
+        const temp = await getUserInfoRequest(uid.value)
+        userInfo.value = temp.data.data
+      }
+    })
 
     return {
       moonIcon,
@@ -76,20 +86,22 @@ export default {
       paletteIcon,
       isLightMode,
       noFaceAvater,
-      isLogin,
       chevronIcon,
       historyIcon,
       favouriteIcon,
       toLoginPage,
+      loginStatus,
+      userInfo
     };
   },
 };
 </script>
 
 <style scoped>
-.van-nav-bar__right > i {
+.van-nav-bar__right>i {
   margin-left: 20px;
 }
+
 .content {
   position: relative;
   padding-top: 8px;
@@ -98,46 +110,53 @@ export default {
   flex: 1;
   overflow: auto;
 }
+
 .top-info {
   height: 60px;
   width: 100%;
   display: flex;
   align-items: center;
 }
-.top-info > img {
+
+.top-info>img {
   height: 90%;
   margin-left: 10px;
   border-radius: 50%;
 }
 
-.top-info > span {
+.top-info>span {
   margin-left: 20px;
   font-size: larger;
 }
-.top-info > :nth-child(3) {
+
+.top-info> :nth-child(3) {
   margin-right: 0;
   margin-left: auto;
 }
+
 .center-info {
   padding: 20px 0;
   display: flex;
-  border-bottom: 1px solid rgb(189, 189, 189);
 }
+
 .info-item {
   display: flex;
   flex-direction: column;
   flex: 1;
   align-items: center;
 }
-.info-item > span:nth-child(2) {
+
+.info-item>span:nth-child(2) {
   color: #646566;
   font-size: small;
 }
+
 .video-info {
   margin-top: 20px;
   height: 80px;
   display: flex;
 }
+
 .video-item {
   flex: 1;
   display: flex;
@@ -145,7 +164,8 @@ export default {
   align-items: center;
   color: #474747;
 }
-.video-item > span {
+
+.video-item>span {
   font-size: 14px;
 }
 </style>

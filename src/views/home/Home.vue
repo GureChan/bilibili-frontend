@@ -1,7 +1,8 @@
 <template>
   <div class="header">
-    <home-nav-bar></home-nav-bar>
-      <home-tab></home-tab>
+    <home-nav-bar :handleClickLeft="toSignInPage" :handleClickRight="toChatPage"></home-nav-bar>
+    <Tab :tabs="tabList" :icon-name="menuIcon">
+    </Tab>
   </div>
   <div class="content">
     <router-view></router-view>
@@ -9,17 +10,43 @@
 </template>
 
 <script>
+import menuIcon from '@/assets/icon/menu.svg'
 import HomeNavBar from "@/views/home/HomeNavBar";
-import HomeTab from "@/views/home/HomeTab";
-
+import Tab from "@/components/Tab.vue";
+import { useRouter } from 'vue-router';
 export default {
   name: "Home",
   components: {
     HomeNavBar,
-    HomeTab,
+    Tab,
   },
   setup() {
+    const router = useRouter()
+    const tabList = [
+      {
+        title: '推荐',
+        tabName: 'recommend'
+      },
+      {
+        title: '热门',
+        tabName: 'hot'
+      },
+    ]
 
+    const toSignInPage = () => {
+      router.push({ name: 'signin' })
+    }
+
+    // TODO:该组件还没做
+    const toChatPage = () => {
+      // router.push({ name: '' })
+    }
+    return {
+      tabList,
+      menuIcon,
+      toSignInPage,
+      toChatPage
+    }
   }
 }
 </script>

@@ -1,7 +1,12 @@
 <template>
-  <router-view></router-view>
+  <router-view v-slot="{ Component }">
+    <keep-alive>
+      <component :is="Component" />
+    </keep-alive>
+  </router-view>
 
-  <div class="footer" v-show="$route.meta.isTabBarShow">
+  <div class="footer" v-show="$route.meta.showTabBar">
+    <!-- 根据从路由传入的meta来判断该页面是否需要tabbar -->
     <tab-bar></tab-bar>
   </div>
 </template>
@@ -26,10 +31,6 @@ html,
 body {
   height: 100%;
   width: 100%;
-}
-
-.footer {
-  overflow: hidden;
 }
 
 #app {

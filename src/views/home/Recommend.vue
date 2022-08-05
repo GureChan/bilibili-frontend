@@ -1,13 +1,8 @@
 <template>
   <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
-    <van-list
-        v-model:loading="loading"
-        :finished="finished"
-        finished-text="没有更多了"
-        @load="onLoad"
-        :offset="10"
-    >
-      <div class="video-view van-clearfix"> <!-- 注意这里要加van-clearfix 在用flex  时需要清除左右浮动 -->
+    <van-list v-model:loading="loading" :finished="finished" finished-text="没有更多了" @load="onLoad" :offset="10">
+      <div class="video-view van-clearfix">
+        <!-- 注意这里要加van-clearfix 在用flex  时需要清除左右浮动 -->
         <template v-for="items in splitItems" :key="items">
           <div class="view-list">
             <template v-for="item in items" :key="item">
@@ -49,7 +44,7 @@
 </template>
 
 <script>
-import {onMounted, computed, ref,reactive} from "vue";
+import { onMounted, computed, ref, reactive } from "vue";
 
 import VideoViewItem from "@/components/VideoViewItem";
 import request from "@/request";
@@ -92,14 +87,14 @@ export default {
 
     const onLoad = () => {
       // 每次执行的时候 loading的值都会被自动设置为true
-      if (refreshing.value){
-        videoList.splice(0,videoList.length)// 清空列表数据
-        refreshing.value=false // 当前不在刷新状态
+      if (refreshing.value) {
+        videoList.splice(0, videoList.length)// 清空列表数据
+        refreshing.value = false // 当前不在刷新状态
       }
       if (videoList.length === 100) {
         finished.value = true
       } else {
-        request.get('/videos', {params: {index: pageIndex++, size: 10}}).then(res => {
+        request.get('/videos', { params: { index: pageIndex++, size: 10 } }).then(res => {
           loading.value = false
           videoList.push(...Object.values(res.data))
         }).catch(err => {
@@ -132,12 +127,14 @@ export default {
   flex-wrap: wrap;
 }
 
-.video-view>.view-list:first-child{
+.video-view>.view-list:first-child {
   margin-right: 4px;
 }
-.video-view>.view-list:nth-child(2){
+
+.video-view>.view-list:nth-child(2) {
   margin-left: 4px;
 }
+
 .view-list {
   flex: 1;
   display: flex;
@@ -178,7 +175,7 @@ export default {
 
 }
 
-.video-title > span {
+.video-title>span {
   display: block;
   margin-left: 8px;
 }
@@ -192,8 +189,7 @@ export default {
   padding-left: 8px;
 }
 
-.video-uploader > span:nth-child(2) {
+.video-uploader>span:nth-child(2) {
   padding-left: 4px;
 }
-
 </style>
